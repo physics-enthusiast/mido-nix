@@ -66,6 +66,20 @@ in
 , nativeBuildInputs ? [ ]
 }:
 
+let
+  hash_ =
+    # Many other combinations don't make sense, but this is the most common one:
+    if hash != "" && sha256 != "" then throw "multiple hashes passed" else
+
+    if hash != "" then { outputHashAlgo = null; outputHash = hash; }
+    else if (outputHash != "" && outputHashAlgo != "") then { inherit outputHashAlgo outputHash; }
+    else if sha512 != "" then { outputHashAlgo = "sha512"; outputHash = sha512; }
+    else if sha256 != "" then { outputHashAlgo = "sha256"; outputHash = sha256; }
+    else if sha1   != "" then { outputHashAlgo = "sha1";   outputHash = sha1; }
+    else if cacert != null then { outputHashAlgo = "sha256"; outputHash = ""; }
+    else throw "fetchFromMicrosoft requires a hash for it's fixed-output derivation";
+in
+
 stdenvNoCC.mkDerivation ((
   if (pname != "" && version != "") then
     { inherit pname version; }
