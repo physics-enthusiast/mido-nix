@@ -24,7 +24,7 @@ in
 , # Additional curl options needed for the download to succeed.
   curlOptsList ? []
 
-  name ? ""
+, name ? ""
 
   # for versioned downloads optionally take pname + version.
 , pname ? ""
