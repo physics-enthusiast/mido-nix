@@ -178,6 +178,7 @@ consumer_download() {
 
     # Limit untrusted size for input validation
     language_skuid_table_html="$(echo "$language_skuid_table_html" | head --bytes 10240)"
+    echo_info "$language_skuid_table_html"
     # tr: Filter for only alphanumerics or "-" to prevent HTTP parameter injection
     sku_id="$(echo "$language_skuid_table_html" | grep "$language" | sed 's/&quot;//g' | cut --delimiter ',' --fields 1  | cut --delimiter ':' --fields 2 | tr --complement --delete '[:alnum:]-' | head --bytes 16)"
     [ "$VERBOSE" ] && echo "SKU ID: $sku_id" >&2
