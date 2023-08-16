@@ -113,7 +113,7 @@ stdenvNoCC.mkDerivation ((
 
   nixpkgsVersion = lib.trivial.release;
 
-  inherit preferLocalBuild;
+  inherit productID windowsVersion language downloadToTemp preferLocalBuild;
 
   postHook = if netrcPhase == null then null else ''
     ${netrcPhase}
