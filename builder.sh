@@ -112,7 +112,7 @@ scurl_file() {
     tls_version="$2"
     url="$3"
 	local error_code=18;
-
+    echo_info "Fetching from $url"
     part_file="${out_file}.iso"
 	while [ $error_code -eq 18 ]; do
 		# --location: Microsoft likes to change which endpoint these downloads are stored on but is usually kind enough to add redirects
