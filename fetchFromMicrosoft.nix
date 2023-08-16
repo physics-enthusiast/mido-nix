@@ -94,7 +94,7 @@ stdenvNoCC.mkDerivation ((
   # New-style output content requirements.
   inherit (hash_) outputHashAlgo outputHash;
 
-  SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt"
+  SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
   outputHashMode = "flat";
 
