@@ -44,9 +44,6 @@ fi
 
 eval "curl+=($curlOptsList)"
 
-downloadedFile="$out"
-if [ -n "$downloadToTemp" ]; then downloadedFile="$TMPDIR/file"; fi
-
 handle_curl_error() {
     error_code="$1"
 
@@ -112,11 +109,10 @@ scurl_file() {
     tls_version="$2"
     url="$3"
 	local error_code=18;
-    part_file="${out_file}.iso"
 	while [ $error_code -eq 18 ]; do
 		# --location: Microsoft likes to change which endpoint these downloads are stored on but is usually kind enough to add redirects
 		# --fail: Return an error on server errors where the HTTP response code is 400 or greater
-		if curl --progress-bar --location --output "$part_file" --continue-at - --fail --proto =https "--tlsv$tls_version" --http1.1 -- "$url" ; then
+		if curl --progress-bar --location --output "$out_file" --continue-at - --fail --proto =https "--tlsv$tls_version" --http1.1 -- "$url" ; then
 			break
 		else
 			error_code=$?
@@ -141,8 +137,8 @@ consumer_download() {
     # If this function in Mido fails to work for you then please test with the Fido script before creating an issue because we basically just copy what Fido does exactly:
     # https://github.com/pbatard/Fido
 
-    out_file="$downloadedFile"
-	product_edition_id="$productID"
+    out_file="$out"
+    product_edition_id="$productID"
     windows_version="$windowsVersion"     # Either 8, 10, or 11
 
     url="https://www.microsoft.com/en-US/software-download/windows$windows_version"
