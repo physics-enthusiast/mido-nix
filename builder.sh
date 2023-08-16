@@ -44,6 +44,11 @@ fi
 
 eval "curl+=($curlOptsList)"
 
+curl+=(
+    $curlOpts
+    $NIX_CURL_FLAGS
+)
+
 handle_curl_error() {
     error_code="$1"
 
