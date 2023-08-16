@@ -36,11 +36,8 @@ curl=(
     --retry 3
     --disable-epsv
     --cookie-jar cookies
+    --insecure
 )
-
-if ! [ -f "$SSL_CERT_FILE" ]; then
-    curl+=(--insecure)
-fi
 
 eval "curl+=($curlOptsList)"
 
