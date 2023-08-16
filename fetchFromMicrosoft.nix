@@ -1,6 +1,6 @@
 { lib, buildPackages ? { inherit stdenvNoCC; }, stdenvNoCC
 , curl # Note that `curl' may be `null', in case of the native stdenvNoCC.
-, cacert ? null, ncurses, libuuid, coreutils-full }:
+, ncurses, libuuid, coreutils-full }:
 
 let
 
@@ -74,7 +74,6 @@ let
     else if sha512 != "" then { outputHashAlgo = "sha512"; outputHash = sha512; }
     else if sha256 != "" then { outputHashAlgo = "sha256"; outputHash = sha256; }
     else if sha1   != "" then { outputHashAlgo = "sha1";   outputHash = sha1; }
-    else if cacert != null then { outputHashAlgo = "sha256"; outputHash = ""; }
     else throw "fetchFromMicrosoft requires a hash for it's fixed-output derivation";
 in
 
@@ -93,10 +92,6 @@ stdenvNoCC.mkDerivation ((
 
   # New-style output content requirements.
   inherit (hash_) outputHashAlgo outputHash;
-
-  SSL_CERT_FILE = if (hash_.outputHash == "" || hash_.outputHash == lib.fakeSha256 || hash_.outputHash == lib.fakeSha512 || hash_.outputHash == lib.fakeHash)
-                  then "${cacert}/etc/ssl/certs/ca-bundle.crt"
-                  else "/no-cert-file.crt";
 
   outputHashMode = "flat";
 
