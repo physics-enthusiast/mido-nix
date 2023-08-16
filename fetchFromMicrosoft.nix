@@ -1,6 +1,6 @@
 { lib, buildPackages ? { inherit stdenvNoCC; }, stdenvNoCC
 , curl # Note that `curl' may be `null', in case of the native stdenvNoCC.
-, cacert ? null, ncurses, toybox }:
+, cacert ? null, ncurses, toybox, coreutils }:
 
 let
 
@@ -89,7 +89,7 @@ stdenvNoCC.mkDerivation ((
 ) // {
   builder = ./builder.sh;
 
-  nativeBuildInputs = [ curl ncurses toybox ] ++ nativeBuildInputs;
+  nativeBuildInputs = [ curl ncurses toybox coreutils ] ++ nativeBuildInputs;
 
   # New-style output content requirements.
   inherit (hash_) outputHashAlgo outputHash;
