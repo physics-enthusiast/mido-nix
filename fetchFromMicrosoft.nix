@@ -1,6 +1,6 @@
 { lib, buildPackages ? { inherit stdenvNoCC; }, stdenvNoCC
 , curl # Note that `curl' may be `null', in case of the native stdenvNoCC.
-, cacert ? null, ncurses, toybox, coreutils }:
+, cacert ? null, ncurses, libuuid, coreutils-full }:
 
 let
 
