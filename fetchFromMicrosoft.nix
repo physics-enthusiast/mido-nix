@@ -89,7 +89,7 @@ stdenvNoCC.mkDerivation ((
 ) // {
   builder = ./builder.sh;
 
-  nativeBuildInputs = [ curl ncurses toybox coreutils ] ++ nativeBuildInputs;
+  nativeBuildInputs = [ curl ncurses libuuid coreutils-full ] ++ nativeBuildInputs;
 
   # New-style output content requirements.
   inherit (hash_) outputHashAlgo outputHash;
