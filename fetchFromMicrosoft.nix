@@ -1,6 +1,6 @@
 { lib, buildPackages ? { inherit stdenvNoCC; }, stdenvNoCC
 , curl # Note that `curl' may be `null', in case of the native stdenvNoCC.
-, cacert ? null, ncurses, toybox }:
+, cacert ? null, ncurses, libuuid, coreutils-full }:
 
 let
 
@@ -84,19 +84,17 @@ stdenvNoCC.mkDerivation ((
   else
     { name =
       if name != "" then name
-      else "WindowsISO";
+      else "windows${windowsVersion}.iso";
     }
 ) // {
   builder = ./builder.sh;
 
-  nativeBuildInputs = [ curl ncurses toybox ] ++ nativeBuildInputs;
+  nativeBuildInputs = [ curl ncurses libuuid coreutils-full ] ++ nativeBuildInputs;
 
   # New-style output content requirements.
   inherit (hash_) outputHashAlgo outputHash;
 
-  SSL_CERT_FILE = if (hash_.outputHash == "" || hash_.outputHash == lib.fakeSha256 || hash_.outputHash == lib.fakeSha512 || hash_.outputHash == lib.fakeHash)
-                  then "${cacert}/etc/ssl/certs/ca-bundle.crt"
-                  else "/no-cert-file.crt";
+  SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
   outputHashMode = "flat";
 
