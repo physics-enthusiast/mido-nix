@@ -49,6 +49,9 @@ curl+=(
     $NIX_CURL_FLAGS
 )
 
+downloadedFile="$out"	
+if [ -n "$downloadToTemp" ]; then downloadedFile="$TMPDIR/file"; fi	
+
 handle_curl_error() {
     error_code="$1"
 
@@ -142,7 +145,7 @@ consumer_download() {
     # If this function in Mido fails to work for you then please test with the Fido script before creating an issue because we basically just copy what Fido does exactly:
     # https://github.com/pbatard/Fido
 
-    out_file="$out"
+    out_file="$downloadedFile"
     product_edition_id="$productID"
     windows_version="$windowsVersion"     # Either 8, 10, or 11
 
