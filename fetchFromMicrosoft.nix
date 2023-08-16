@@ -107,13 +107,11 @@ stdenvNoCC.mkDerivation ((
     - If you wish for each list element to be passed as a separate curl argument, allowing arguments to contain spaces, use curlOptsList instead:
       curlOptsList = [ ${lib.concatMapStringsSep " " lib.strings.escapeNixString curlOpts} ];'' curlOpts;
   curlOptsList = lib.escapeShellArgs curlOptsList;
-  inherit postFetch downloadToTemp;
+  inherit productID windowsVersion language postFetch downloadToTemp preferLocalBuild;
 
   impureEnvVars = impureEnvVars ++ netrcImpureEnvVars;
 
   nixpkgsVersion = lib.trivial.release;
-
-  inherit productID windowsVersion language downloadToTemp preferLocalBuild;
 
   postHook = if netrcPhase == null then null else ''
     ${netrcPhase}
