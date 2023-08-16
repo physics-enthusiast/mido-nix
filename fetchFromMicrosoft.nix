@@ -84,7 +84,7 @@ stdenvNoCC.mkDerivation ((
   else
     { name =
       if name != "" then name
-      else "WindowsISO";
+      else "Windows${windowsVersion}.iso";
     }
 ) // {
   builder = ./builder.sh;
