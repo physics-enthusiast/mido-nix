@@ -7,7 +7,7 @@
       })    
     ];
 	environment.systemPackages = [
-      (writeShellScriptBin "mido_get_langs" ''
+      (pkgs.writeShellScriptBin "mido_get_langs" ''
 	      usage() {
               echo "Usage: $0 <productID> <windowsVersion>"
 			  echo "For more details visit https://github.com/physics-enthusiast/mido-nix"
