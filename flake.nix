@@ -1,5 +1,5 @@
 {
-  description = "NixOS module which provides NVIDIA vGPU functionality";
+  description = "NixOS module which allows for declarative fetching of Windows ISOs";
 
   outputs = { self }: {
     nixosModules = {
