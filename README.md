@@ -4,7 +4,29 @@ This module implements the `pkgs.fetchFromMicrosoft` fetcher via a `nixpkgs` ove
 
 Example usage:
 
-1. Add this repo to the inputs of your system flake. For an introduction to flakes, see [here](https://nixos.wiki/wiki/Flakes).
+1. Add this repo to the inputs of your system flake and add `mido-nix.nixosModules.default` to its module set: 
+   
+   ```nix
+   {
+     inputs.mido-nix.url = "github:physics-enthusiast/mido-nix";
+     # optional, not necessary for the module
+     #inputs.mido-nix.inputs.nixpkgs.follows = "nixpkgs";
+   
+     outputs = { self, nixpkgs, mido-nix }: {
+       # change `yourhostname` to your actual hostname
+       nixosConfigurations.yourhostname = nixpkgs.lib.nixosSystem {
+         # customize to your system
+         system = "x86_64-linux";
+         modules = [
+           ./configuration.nix
+           mido-nix.nixosModules.default
+         ];
+       };
+     };
+   }
+   ```
+   
+   For an introduction to flakes, see [here](https://nixos.wiki/wiki/Flakes).
 
 2. Use as a fetcher to create a derivation that places the ISO into the store:
    
