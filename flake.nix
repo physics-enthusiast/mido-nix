@@ -21,7 +21,7 @@
     };
     packages = forAllSystems (system:
       import ./mido-get-lang.nix {
-        pkgs = import nixpkgs {inherit system;};
+        pkgs = nixpkgs.legacyPackages.${system};
 	  });
   };
 }
